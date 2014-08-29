@@ -3,19 +3,19 @@
 ;; Quoted-insert to the rescue. Type C-q C-i to insert a horizontal tab character
 
 ;; Erlang mode
-(push "~/sw/otp/lib/tools/emacs" load-path)
+(push "/opt/erlang/R16B03-1/lib/tools-2.6.13/emacs/" load-path)
 (require 'erlang-start)
 
 ;; Flymake for erlang
-(require 'erlang-flymake)
+;;(require 'erlang-flymake)
 ;;
 ;; http://www.emacswiki.org/emacs/FlyMake#toc19
-  (defun flymake-next-error()
-    (interactive)
-    (flymake-goto-next-error)
-    (flymake-display-err-menu-for-current-line)
-    )
-  (local-set-key "\C-c\C-v" 'flymake-next-error)
+;;  (defun flymake-next-error()
+;;    (interactive)
+;;    (flymake-goto-next-error)
+;;    (flymake-display-err-menu-for-current-line)
+;;    )
+;;  (local-set-key "\C-c\C-v" 'flymake-next-error)
 
 ;; Show column number
 (column-number-mode 1)
@@ -26,9 +26,9 @@
 (global-whitespace-mode t)
 
 ;; Distel
-(add-to-list 'load-path "/usr/local/share/distel/elisp")
-(require 'distel)
-(distel-setup)
+;;(add-to-list 'load-path "/usr/local/share/distel/elisp")
+;;(require 'distel)
+;;(distel-setup)
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
 (defun rename-file-and-buffer (new-name)
@@ -50,16 +50,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(safe-local-variable-values (quote ((allout-layout . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
-
 
 (setq
    backup-by-copying t      ; don't clobber symlinks
@@ -69,3 +67,17 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t)       ; use versioned backups
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")
+                         ("elpa" . "http://elpa.gnu.org/packages/")))
+
+(add-hook 'after-init-hook 'edts-load-after-init-hook)
+(defun edts-load-after-init-hook ()
+  (require 'edts-start))
+
+(global-set-key [S-dead-grave] "`")
+(global-set-key [dead-acute] "´")
+(global-set-key [dead-tilde] "~")
+(global-set-key [S-dead-circumflex] "^")
