@@ -140,12 +140,11 @@ function prompt_cmd {
     DATE_PT="${PURPLE}\@ \d"
     CWD_PT="${WHITE}\w"
 
-    PS1="${EXIT_PT}\n${YELLOW}(${USER_PT}${BIND}${DATE_PT}${BIND}${CWD_PT}${YELLOW})${WHITE}:\n\$${OFF} "
+    PS1="${EXIT_PT}\n${YELLOW}(${USER_PT}${BIND}${DATE_PT}${BIND}${CWD_PT}${YELLOW})${WHITE}:\n\$(__git_ps1) \$${OFF} "
 }
 
 PROMPT_COMMAND=prompt_cmd
 
-HISTSIZE=1000
 
 PATH=$PATH:~/bin
 
