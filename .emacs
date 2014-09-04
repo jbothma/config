@@ -59,6 +59,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+
+
+
 (setq
    backup-by-copying t      ; don't clobber symlinks
    backup-directory-alist
@@ -67,6 +70,9 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t)       ; use versioned backups
+
+
+
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
@@ -77,7 +83,7 @@
 (defun edts-load-after-init-hook ()
   (require 'edts-start))
 
-(global-set-key [S-dead-grave] "`")
-(global-set-key [dead-acute] "´")
-(global-set-key [dead-tilde] "~")
-(global-set-key [S-dead-circumflex] "^")
+(global-set-key [S-dead-grave S-dead-grave] "`")
+(global-set-key [dead-acute dead-acute] "´")
+(global-set-key [dead-tilde dead-tilde] "~")
+(global-set-key [S-dead-circumflex S-dead-circumflex] "^")
