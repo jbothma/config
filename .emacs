@@ -1,5 +1,9 @@
 ;; I hate tabs! http://emacsblog.org/2007/09/30/quick-tip-spaces-instead-of-tabs/
 (setq-default indent-tabs-mode nil)
+
+;; Use clipboard properly
+(setq x-select-enable-clipboard t)
+
 ;; Quoted-insert to the rescue. Type C-q C-i to insert a horizontal tab character
 
 ;; Erlang mode
