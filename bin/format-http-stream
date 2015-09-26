@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+f=$1
+
+cat $1 \
+    | sed 's/GET/\n\n====================\nGET/' \
+    | sed 's/POST/\n\n====================\nPOST/' \
+    | sed 's/PUT/\n\n====================\nPUT/' \
+    | sed 's/DELETE/\n\n====================\nDELETE/' \
+    | sed 's/PATCH/\n\n====================\nPATCH/' \
+    | sed 's/HTTP\/1.1 /\n-----------------\nHTTP\/1.1 /' \
+    | sed 's/Authorization: Basic .*$/Authorization: Basic ...censored.../'

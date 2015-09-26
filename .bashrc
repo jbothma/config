@@ -113,11 +113,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-. /opt/erlang/R16B03-1/activate
-
-. /etc/bash_completion
+. /opt/erlang/17.5/activate
 
 . ~/.kerl/bash_completion
+
+source /usr/share/git/completion/git-prompt.sh
 
 function prompt_cmd {
 
@@ -149,3 +149,26 @@ PROMPT_COMMAND=prompt_cmd
 PATH=$PATH:~/bin
 
 unset SSH_ASKPASS
+
+export ERL_LIBS=~/lib/erlang
+
+export EDITOR="emacs -nw"
+
+#export JAVA_HOME=/usr/lib/jvm/java-8-oracle/
+
+export GIT_CACHES=~/.gitcaches
+
+
+#eval $(ssh-agent)
+
+eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
+
+#ssh-add -l >/dev/null || alias ssh='ssh-add -l >/dev/null || ssh-add && unalias ssh; ssh'
+
+# The next line updates PATH for the Google Cloud SDK.
+#source '/home/jdb/bin/google-cloud-sdk/path.bash.inc'
+
+# The next line enables shell command completion for gcloud.
+#source '/home/jdb/bin/google-cloud-sdk/completion.bash.inc'
+
+#export CLOUDSDK_PYTHON=/usr/bin/python2

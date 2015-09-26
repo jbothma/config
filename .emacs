@@ -1,14 +1,28 @@
+;; paredit
+
+
+;; menu-bar-mode -1
+;; tool-bar-mode -1
+
 ;; I hate tabs! http://emacsblog.org/2007/09/30/quick-tip-spaces-instead-of-tabs/
 (setq-default indent-tabs-mode nil)
-
-;; Use clipboard properly
-(setq x-select-enable-clipboard t)
-
 ;; Quoted-insert to the rescue. Type C-q C-i to insert a horizontal tab character
 
+;; essen/cowboy contribution format
+;;(setq-default indent-tabs-mode t)
+;;(setq-default tab-width 4) ; or any other preferred value
+;;(defvaralias 'c-basic-offset 'tab-width)
+;;(defvaralias 'cperl-indent-level 'tab-width)
+;; make tab key always call a indent command.
+;;(setq-default tab-always-indent t)
+;; make tab key call indent command or insert tab character, depending on cursor position
+;;(setq-default tab-always-indent nil)
+;; make tab key do indent first then completion.
+;;(setq-default tab-always-indent 'complete)
+
 ;; Erlang mode
-(push "/opt/erlang/R16B03-1/lib/tools-2.6.13/emacs/" load-path)
-(require 'erlang-start)
+;(push "/opt/erlang/R16B03-1/lib/tools-2.6.13/emacs/" load-path)
+;(require 'erlang-start)
 
 ;; Flymake for erlang
 ;;(require 'erlang-flymake)
@@ -54,8 +68,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (tango-dark)))
  '(inhibit-startup-screen t)
- '(safe-local-variable-values (quote ((allout-layout . t)))))
+ '(safe-local-variable-values (quote ((erlang-indent-level . 4) (allout-layout . t)))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -91,3 +106,11 @@
 (global-set-key [dead-acute dead-acute] "´")
 (global-set-key [dead-tilde dead-tilde] "~")
 (global-set-key [S-dead-circumflex S-dead-circumflex] "^")
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setenv "PATH" (concat (getenv "PATH") ":/opt/erlang/17.5/bin/"))
+(setq exec-path (append exec-path '("/opt/erlang/17.5/bin/")))
+
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\.yml\'" . yaml-mode))
