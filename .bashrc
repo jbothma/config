@@ -118,6 +118,7 @@ fi
 . ~/.kerl/bash_completion
 
 source /usr/share/git/completion/git-prompt.sh
+source /usr/share/bash-completion/completions/pass
 
 function prompt_cmd {
 
@@ -146,7 +147,7 @@ function prompt_cmd {
 PROMPT_COMMAND=prompt_cmd
 
 
-PATH=$PATH:~/bin
+PATH=$PATH:~/bin:/root/.gem/ruby/2.2.0/bin
 
 unset SSH_ASKPASS
 

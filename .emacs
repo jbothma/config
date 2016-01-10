@@ -102,6 +102,10 @@
 (defun edts-load-after-init-hook ()
   (require 'edts-start))
 
+(setq elpy-rpc-python-command "/home/jdb/.emacs-venv2/bin/python")
+(package-initialize)
+(elpy-enable)
+
 (global-set-key [S-dead-grave S-dead-grave] "`")
 (global-set-key [dead-acute dead-acute] "´")
 (global-set-key [dead-tilde dead-tilde] "~")

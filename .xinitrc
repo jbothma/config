@@ -8,7 +8,7 @@ eval $(gpg-agent --daemon)
 export SSH_AUTH_SOCK
 export GPG_AGENT_INFO
 
-TZ='Europe/Stockholm'; export TZ
+TZ='Africa/Johannesburg'; export TZ
 
 # Desktop compositor
 compton --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc -b -CG
