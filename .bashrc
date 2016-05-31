@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=10000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -147,7 +147,7 @@ function prompt_cmd {
 PROMPT_COMMAND=prompt_cmd
 
 
-PATH=$PATH:~/bin:/root/.gem/ruby/2.2.0/bin
+PATH=$PATH:~/bin:/root/.gem/ruby/2.2.0/bin:$(ruby -e 'print Gem.user_dir')/bin
 
 unset SSH_ASKPASS
 
@@ -173,3 +173,5 @@ eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 #source '/home/jdb/bin/google-cloud-sdk/completion.bash.inc'
 
 #export CLOUDSDK_PYTHON=/usr/bin/python2
+
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')

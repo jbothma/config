@@ -78,6 +78,7 @@
  ;; If there is more than one, they won't work right.
  )
 
+(setq js-indent-level 2)
 
 
 

@@ -1,0 +1,1 @@
+for container in `sudo ls ~/docker/containers/`; do echo; echo $container; sudo cat ~/docker/containers/$container/config.v2.json|jq .|egrep -i "(name|image)"; done
