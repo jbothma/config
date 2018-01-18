@@ -1,0 +1,5 @@
+#!/bin/sh 
+prefix=/usr
+exec_prefix=${prefix}
+
+exec /usr/bin/mono ${exec_prefix}/lib/pinta/Pinta.exe "$@"

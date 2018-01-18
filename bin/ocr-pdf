@@ -1,0 +1,18 @@
+# usage: ocr-pdf scanned.pdf
+
+set -euf -o pipefail -o xtrace
+
+INFILE=$1
+BASENAME=$(basename "$1" .pdf)
+TIFFFILE=$BASENAME.tiff
+OCRDPDFNOEXT=$BASENAME-OCRd-big
+OCRDPDF=$OCRDPDFNOEXT.pdf
+SMALLEROCRDPDF=$BASENAME-OCRd.pdf
+
+# Make a multipage TIFF of the original PDF ~700MB
+gs -o "$TIFFFILE" -sDEVICE=tiff32nc -r300 "$INFILE"
+# OCR the TIFF using tesseract4 alpha in docker, store as PDF of images+positioned text ~16MB
+docker run --rm -v $PWD:$PWD tesseractshadow/tesseract4re tesseract "$PWD/$TIFFFILE" "$PWD/$OCRDPDFNOEXT" pdf
+rm "$TIFFFILE"
+# Convert images in PDF to jpeg to reduce size ~4MB
+gs -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -sOutputFile="$SMALLEROCRDPDF" "$OCRDPDF"
