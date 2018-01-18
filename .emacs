@@ -63,14 +63,14 @@
           (rename-buffer new-name)
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (tango-dark)))
- '(inhibit-startup-screen t)
- '(safe-local-variable-values (quote ((erlang-indent-level . 4) (allout-layout . t)))))
+ '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -99,9 +99,13 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("elpa" . "http://elpa.gnu.org/packages/")))
 
-(add-hook 'after-init-hook 'edts-load-after-init-hook)
-(defun edts-load-after-init-hook ()
-  (require 'edts-start))
+;; (add-hook 'after-init-hook 'edts-load-after-init-hook)
+;; (defun edts-load-after-init-hook ()
+;;   (require 'edts-start))
+
+(require 'package)
+(add-to-list 'package-archives
+             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 (setq elpy-rpc-python-command "/home/jdb/.emacs-venv2/bin/python")
 (package-initialize)
@@ -114,8 +118,8 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(setenv "PATH" (concat (getenv "PATH") ":/opt/erlang/17.5/bin/"))
-(setq exec-path (append exec-path '("/opt/erlang/17.5/bin/")))
+;; (setenv "PATH" (concat (getenv "PATH") ":/opt/erlang/17.5/bin/"))
+;; (setq exec-path (append exec-path '("/opt/erlang/17.5/bin/")))
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\.yml\'" . yaml-mode))

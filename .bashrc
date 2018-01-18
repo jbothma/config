@@ -113,12 +113,12 @@ if ! shopt -oq posix; then
   fi
 fi
 
-. /opt/erlang/17.5/activate
+#. /opt/erlang/17.5/activate
 
-. ~/.kerl/bash_completion
+#. ~/.kerl/bash_completion
 
 source /usr/share/git/completion/git-prompt.sh
-source /usr/share/bash-completion/completions/pass
+#source /usr/share/bash-completion/completions/pass
 
 function prompt_cmd {
 
@@ -175,3 +175,6 @@ eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
 #export CLOUDSDK_PYTHON=/usr/bin/python2
 
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+
+# added by travis gem
+[ -f /home/jdb/.travis/travis.sh ] && source /home/jdb/.travis/travis.sh
