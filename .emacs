@@ -70,7 +70,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (tango-dark)))
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(package-selected-packages (quote (blacken rjsx-mode elpy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -95,7 +96,6 @@
 
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("elpa" . "http://elpa.gnu.org/packages/")))
 
@@ -108,6 +108,7 @@
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 (setq elpy-rpc-python-command "/home/jdb/.emacs-venv2/bin/python")
+(setq elpy-rpc-ignored-buffer-size 102400)
 (package-initialize)
 (elpy-enable)
 
@@ -117,6 +118,7 @@
 (global-set-key [S-dead-circumflex S-dead-circumflex] "^")
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'python-mode-hook 'blacken-mode)
 
 ;; (setenv "PATH" (concat (getenv "PATH") ":/opt/erlang/17.5/bin/"))
 ;; (setq exec-path (append exec-path '("/opt/erlang/17.5/bin/")))

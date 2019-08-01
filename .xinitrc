@@ -64,6 +64,7 @@ syndaemon -t -k -i 2 -d >>.syndaemon.log
 
 nm-applet &
 udiskie &
+blueman-applet &
 
 pgrep redshift &> /dev/null || redshift-gtk &> /dev/null &
 
