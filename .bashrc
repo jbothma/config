@@ -147,7 +147,7 @@ function prompt_cmd {
 PROMPT_COMMAND=prompt_cmd
 
 
-PATH=$PATH:~/bin:/root/.gem/ruby/2.2.0/bin:$(ruby -e 'print Gem.user_dir')/bin
+PATH=$PATH:~/bin:/root/.gem/ruby/2.2.0/bin:$(ruby -e 'print Gem.user_dir')/bin:/home/jdb/env-flake8/bin:node_modules/.bin
 
 unset SSH_ASKPASS
 
