@@ -1,0 +1,10 @@
+source /usr/share/bash-completion/completions/pass
+ _jdpass(){
+     PASSWORD_STORE_DIR=~/.pass/jd/ _pass
+ }
+ complete -o filenames -o nospace -F _jdpass jdpass
+
+ _oupass(){
+     PASSWORD_STORE_DIR=~/.pass/openup/ _pass
+ }
+ complete -o filenames -o nospace -F _oupass oupass

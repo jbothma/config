@@ -1,52 +1,40 @@
-;; paredit
+;; https://melpa.org/#/getting-started
+(require 'package)
+(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                    (not (gnutls-available-p))))
+       (proto (if no-ssl "http" "https")))
+  (when no-ssl
+    (warn "\
+Your version of Emacs does not support SSL connections,
+which is unsafe because it allows man-in-the-middle attacks.
+There are two things you can do about this warning:
+1. Install an Emacs version that does support SSL and be safe.
+2. Remove this warning from your init file so you won't see it again."))
+  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
+  ;; (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+(package-initialize)
 
 
-;; menu-bar-mode -1
-;; tool-bar-mode -1
 
 ;; I hate tabs! http://emacsblog.org/2007/09/30/quick-tip-spaces-instead-of-tabs/
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq-default indent-tabs-mode nil)
 ;; Quoted-insert to the rescue. Type C-q C-i to insert a horizontal tab character
-
-;; essen/cowboy contribution format
-;;(setq-default indent-tabs-mode t)
-;;(setq-default tab-width 4) ; or any other preferred value
-;;(defvaralias 'c-basic-offset 'tab-width)
-;;(defvaralias 'cperl-indent-level 'tab-width)
-;; make tab key always call a indent command.
-;;(setq-default tab-always-indent t)
-;; make tab key call indent command or insert tab character, depending on cursor position
-;;(setq-default tab-always-indent nil)
-;; make tab key do indent first then completion.
-;;(setq-default tab-always-indent 'complete)
-
-;; Erlang mode
-;(push "/opt/erlang/R16B03-1/lib/tools-2.6.13/emacs/" load-path)
-;(require 'erlang-start)
-
-;; Flymake for erlang
-;;(require 'erlang-flymake)
-;;
-;; http://www.emacswiki.org/emacs/FlyMake#toc19
-;;  (defun flymake-next-error()
-;;    (interactive)
-;;    (flymake-goto-next-error)
-;;    (flymake-display-err-menu-for-current-line)
-;;    )
-;;  (local-set-key "\C-c\C-v" 'flymake-next-error)
-
-;; Show column number
-(column-number-mode 1)
 
 ;; Make trailing whitespace red and anything wider than 80 columns black
 (require 'whitespace)
 (setq whitespace-style '(face empty tabs lines-tail trailing))
 (global-whitespace-mode t)
-
-;; Distel
-;;(add-to-list 'load-path "/usr/local/share/distel/elisp")
-;;(require 'distel)
-;;(distel-setup)
 
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
 (defun rename-file-and-buffer (new-name)
@@ -71,7 +59,9 @@
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (tango-dark)))
  '(inhibit-startup-screen t)
- '(package-selected-packages (quote (blacken rjsx-mode elpy))))
+ '(package-selected-packages
+   (quote
+    (flycheck xref-js2 js2-mode jedi python-black rjsx-mode elpy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -79,9 +69,19 @@
  ;; If there is more than one, they won't work right.
  )
 
-(setq js-indent-level 2)
+;; Python error highlighting
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
 
+;; Python code completion
+;;(add-hook 'python-mode-hook 'jedi:setup)
 
+;; Python strict formatting
+(use-package python-black
+  :demand t
+  :after python)
 
 (setq
    backup-by-copying t      ; don't clobber symlinks
@@ -92,36 +92,33 @@
    kept-old-versions 2
    version-control t)       ; use versioned backups
 
-
-
-
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("elpa" . "http://elpa.gnu.org/packages/")))
-
-;; (add-hook 'after-init-hook 'edts-load-after-init-hook)
-;; (defun edts-load-after-init-hook ()
-;;   (require 'edts-start))
-
-(require 'package)
-(add-to-list 'package-archives
-             '("elpy" . "http://jorgenschaefer.github.io/packages/"))
-
-(setq elpy-rpc-python-command "/home/jdb/.emacs-venv2/bin/python")
-(setq elpy-rpc-ignored-buffer-size 102400)
-(package-initialize)
-(elpy-enable)
-
 (global-set-key [S-dead-grave S-dead-grave] "`")
 (global-set-key [dead-acute dead-acute] "´")
 (global-set-key [dead-tilde dead-tilde] "~")
 (global-set-key [S-dead-circumflex S-dead-circumflex] "^")
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'python-mode-hook 'blacken-mode)
 
-;; (setenv "PATH" (concat (getenv "PATH") ":/opt/erlang/17.5/bin/"))
-;; (setq exec-path (append exec-path '("/opt/erlang/17.5/bin/")))
-
+(add-to-list 'load-path "~/.emacs.d/yaml-mode/")
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\.yml\'" . yaml-mode))
+
+
+
+
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; Better imenu
+(add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+
+(require 'xref-js2)
+
+;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
+;; unbind it.
+(define-key js-mode-map (kbd "M-.") nil)
+
+(add-hook 'js2-mode-hook (lambda ()
+  (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+
+(setq js-indent-level 2)

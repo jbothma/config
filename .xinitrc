@@ -48,24 +48,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-source /etc/X11/xinit/xinitrc.d/30-dbus
-
 TZ='Africa/Johannesburg'; export TZ
 
-# Desktop compositor
-compton --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc -b -CG
-
-# Keyboard layout
-setxkbmap -layout se
-setxkbmap -option ctrl:nocaps
-
-xbindkeys
-syndaemon -t -k -i 2 -d >>.syndaemon.log
-
-nm-applet &
-udiskie &
-blueman-applet &
-
-pgrep redshift &> /dev/null || redshift-gtk &> /dev/null &
-
+xss-lock -- i3lock -n &
 exec i3

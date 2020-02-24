@@ -1,0 +1,15 @@
+xinput set-prop 14 299 1
+xinput set-prop 14 321 1
+xinput set-prop 14 317 1
+
+setxkbmap -option ctrl:nocaps
+xbindkeys
+
+# Desktop compositor
+compton -b -CG
+
+pgrep redshift &> /dev/null || redshift-gtk &> /dev/null &
+
+udiskie -t &
+
+arbtt-capture &
